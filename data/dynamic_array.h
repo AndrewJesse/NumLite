@@ -37,5 +37,6 @@ typedef struct
 } DynamicArray;
 
 DynamicArray *create_dynamic_array(size_t initial_capacity);
+void add_to_dynamic_array(DynamicArray *array, Data data);
 
 #endif // DYNAMIC_ARRAY_H

@@ -5,37 +5,39 @@
 
 #include "dynamic_array.h"
 
+DynamicArray *create_dynamic_array(size_t initial_size)
+{
+    DynamicArray *array = malloc(sizeof(DynamicArray));
+    if (array == NULL)
+    {
+        return NULL; // Failed to allocate memory
+    }
+
+    array->items = malloc(initial_size * sizeof(Data));
+    if (array->items == NULL)
+    {
+        free(array);
+        return NULL; // Failed to allocate memory
+    }
+
+    array->size = 0;
+    array->capacity = initial_size;
+    return array;
+}
 /**
  * @brief Creates a new dynamic array with the specified initial capacity.
  *
  * @param initial_capacity The initial capacity of the dynamic array.
  * @return A pointer to the newly created dynamic array.
  */
-DynamicArray *create_dynamic_array(size_t initial_capacity)
-{
-    DynamicArray *array = malloc(sizeof(DynamicArray));
-    array->items = malloc(initial_capacity * sizeof(Data));
-    array->capacity = initial_capacity;
-    array->size = 0;
-    return array;
-}
-
-/**
- * @brief Adds a value to the dynamic array.
- *
- * If the array is full, its capacity is doubled before adding the value.
- *
- * @param array The dynamic array.
- * @param value The value to be added.
- */
-void add_to_dynamic_array(DynamicArray *array, Data value)
+void add_to_dynamic_array(DynamicArray *array, Data data)
 {
     if (array->size == array->capacity)
     {
         array->capacity *= 2;
         array->items = realloc(array->items, array->capacity * sizeof(Data));
     }
-    array->items[array->size] = value;
+    array->items[array->size] = data;
     array->size++;
 }
 
@@ -55,7 +57,8 @@ Data get_from_dynamic_array(DynamicArray *array, size_t index)
     }
     else
     {
-        // Handle error: index out of bounds
+        Data errorData = {.intValue = -1};
+        return errorData;
     }
 }
 
