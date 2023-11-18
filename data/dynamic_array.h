@@ -35,4 +35,7 @@ typedef struct
     size_t capacity; /**< Maximum number of elements that can be stored in the array */
     size_t size;     /**< Current number of elements in the array */
 } DynamicArray;
+
+DynamicArray *create_dynamic_array(size_t initial_capacity);
+
 #endif // DYNAMIC_ARRAY_H
